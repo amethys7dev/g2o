@@ -38,9 +38,6 @@ build-frontend = "build[uv]"
 
 [tool.cibuildwheel.windows]
 environment = { CFLAGS="/Zi", CXXFLAGS="/Zi", LDFLAGS="/DEBUG" }
-cmake.args = [
- "-DCMAKE_BUILD_TYPE=Debug"
-]
 
 [tool.cibuildwheel.macos]
 environment = { CFLAGS="-g", CXXFLAGS="-g" }
@@ -65,7 +62,8 @@ before-all = "apk add eigen"
 if.platform-system = "^win32"
 inherit.cmake.args = "append"
 cmake.args = [
- "-DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake"
+ "-DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake",
+ "-DCMAKE_BUILD_TYPE=Debug"
 ]
 build.tool-args = ["-maxcpucount:4"]
 
