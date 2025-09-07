@@ -31,10 +31,14 @@ build.tool-args = ["-j4"]
 if.env.G2O_CACHE_BUILD = true
 build-dir = "/tmp/g2opy"
 
-
-
 [tool.cibuildwheel]
 build-frontend = "build[uv]"
+"cmake.build-type" = "Debug"
+
+[tool.cibuildwheel.config-settings]
+"cmake.build-type" = "Debug"
+
+
 
 [tool.cibuildwheel.windows]
 environment = { CFLAGS="/Zi", CXXFLAGS="/Zi", LDFLAGS="/DEBUG" }
