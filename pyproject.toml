@@ -29,11 +29,20 @@ build.tool-args = ["-j4"]
 if.env.G2O_CACHE_BUILD = true
 build-dir = "/tmp/g2opy"
 
+
 [tool.cibuildwheel]
 build-frontend = "build[uv]"
 
+[tool.cibuildwheel.windows]
+environment = { CFLAGS="/Zi", CXXFLAGS="/Zi", LDFLAGS="/DEBUG" }
+
+[tool.cibuildwheel.macos]
+environment = { CFLAGS="-g", CXXFLAGS="-g" }
+
 [tool.cibuildwheel.linux]
 before-build = "yum install -y eigen3-devel json-devel"
+environment = { CFLAGS="-g", CXXFLAGS="-g" }
+
 
 [[tool.cibuildwheel.overrides]]
 select = "*-musllinux*"
