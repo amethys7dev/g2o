@@ -35,10 +35,6 @@ build-dir = "/tmp/g2opy"
 build-frontend = "build[uv]"
 "cmake.build-type" = "Debug"
 
-[tool.cibuildwheel.config-settings]
-"cmake.build-type" = "Debug"
-
-
 
 [tool.cibuildwheel.windows]
 environment = { CFLAGS="/Zi", CXXFLAGS="/Zi", LDFLAGS="/DEBUG" }
