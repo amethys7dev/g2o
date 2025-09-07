@@ -24,24 +24,36 @@ wheel.packages = ["python/g2opy"]
 messages.after-failure = "Build failed."
 build.targets = ["g2opy"]
 build.tool-args = ["-j4"]
-# ADDED: Prevent stripping of debug symbols
-wheel.strip = false
+
+
 
 [[tool.scikit-build.overrides]]
 if.env.G2O_CACHE_BUILD = true
 build-dir = "/tmp/g2opy"
 
-# ADDED: Set CMake to Debug mode globally for all builds
-[[tool.scikit-build.overrides]]
-inherit.cmake.args = "prepend"
-cmake.args = ["-DCMAKE_BUILD_TYPE=Debug"]
+
 
 [tool.cibuildwheel]
 build-frontend = "build[uv]"
 
+[tool.cibuildwheel.windows]
+environment = { CFLAGS="/Zi", CXXFLAGS="/Zi", LDFLAGS="/DEBUG" }
+cmake.args = [
+ "-DCMAKE_BUILD_TYPE=Debug"
+]
+
+[tool.cibuildwheel.macos]
+environment = { CFLAGS="-g", CXXFLAGS="-g" }
+cmake.args = [
+ "-DCMAKE_BUILD_TYPE=Debug"
+]
+
 [tool.cibuildwheel.linux]
 before-build = "yum install -y eigen3-devel json-devel"
-
+environment = { CFLAGS="-g", CXXFLAGS="-g" }
+cmake.args = [
+ "-DCMAKE_BUILD_TYPE=Debug"
+]
 
 [[tool.cibuildwheel.overrides]]
 select = "*-musllinux*"
@@ -53,8 +65,7 @@ before-all = "apk add eigen"
 if.platform-system = "^win32"
 inherit.cmake.args = "append"
 cmake.args = [
- "-DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake",
- "-DCMAKE_BUILD_TYPE=Debug" # Kept for Windows
+ "-DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake"
 ]
 build.tool-args = ["-maxcpucount:4"]
 
