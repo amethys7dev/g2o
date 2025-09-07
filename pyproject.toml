@@ -33,6 +33,8 @@ build-dir = "/tmp/g2opy"
 
 [tool.cibuildwheel]
 build-frontend = "build[uv]"
+
+[tool.cibuildwheel.config-settings]
 "cmake.build-type" = "Debug"
 
 
