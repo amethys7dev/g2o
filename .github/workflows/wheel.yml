@@ -142,6 +142,18 @@ jobs:
         with:
           name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
           path: ./wheelhouse/*.whl
+          
+      - name: Gather Debug Symbols
+        if: startsWith(matrix.os, 'windows')
+        run: |
+          mkdir symbols
+          copy $(find . -name "*.pdb") symbols || echo "No PDBs found"
+          dir symbols
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pdb-symbols-${{ matrix.os }}
+          path: symbols
+
 
   upload_all:
     needs: [build_wheels, make_sdist]
