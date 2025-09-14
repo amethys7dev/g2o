@@ -23,7 +23,7 @@ cmake.args = [
 wheel.packages = ["python/g2opy"]
 messages.after-failure = "Build failed."
 build.targets = ["g2opy"]
-build.tool-args = ["-j4"]
+build.tool-args = ["-j16"]
 
 
 
@@ -39,7 +39,7 @@ build-frontend = "build[uv]"
 
 
 [tool.cibuildwheel.windows]
-environment = { CFLAGS="/Zi", CXXFLAGS="/Zi", LDFLAGS="/DEBUG" }
+environment = { CL="/MP", _CL_="16", CFLAGS="/Zi", CXXFLAGS="/Zi", LDFLAGS="/DEBUG" }
 
 [tool.cibuildwheel.macos]
 environment = { CFLAGS="-g", CXXFLAGS="-g" }
