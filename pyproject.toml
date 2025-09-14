@@ -67,7 +67,7 @@ cmake.args = [
  "-DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake",
  "-DCMAKE_BUILD_TYPE=Debug"
 ]
-build.tool-args = ["-maxcpucount:4"]
+build.tool-args = ["-maxcpucount:16"]
 
 [[tool.cibuildwheel.overrides]]
 select = "*win*"
