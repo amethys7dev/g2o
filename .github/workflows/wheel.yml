@@ -147,7 +147,12 @@ jobs:
         if: startsWith(matrix.os, 'windows')
         run: |
           mkdir symbols
-          copy $(find . -name "*.pdb") symbols || echo "No PDBs found"
+          $pdbFiles = Get-ChildItem -Recurse -Filter "*.pdb"
+          if ($pdbFiles) {
+              Copy-Item -Path $pdbFiles -Destination "symbols"
+          } else {
+              echo "No PDBs found"
+          }
           dir symbols
       - uses: actions/upload-artifact@v4
         with:
